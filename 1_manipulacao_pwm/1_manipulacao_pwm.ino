@@ -1,12 +1,12 @@
 int ledPin = 14;
 
 // INPUTS
-int frequencia = 1000; // frequencia em Hz
+int frequencia = 10000; // frequencia em Hz
 int bits = 8;           // resolucao 2 a 12 bits
-float duty_cycle = 0.8; // porcentagem de 0.01 a 0.99
+float duty_cycle;       // porcentagem de 0.01 a 0.99
 
 // OUTPUT
-float bytes = duty_cycle*pow(2,bits);
+float bytes;
 
 void setup(){
   pinMode(ledPin, OUTPUT);
@@ -14,6 +14,11 @@ void setup(){
 }
 
 void loop(){
-  ledcWrite(ledPin, bytes);
-  delay(2);
+  for (int i=0; i<10; i++){
+    duty_cycle = 0.1*i;
+    bytes = duty_cycle*pow(2,bits);
+    ledcWrite(ledPin, bytes);
+    delay(200);          //Adicionado para que a variação de duty cycle seja visivel a olho nu em um LED
+  }
+
 }
